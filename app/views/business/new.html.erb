@@ -1,0 +1,21 @@
+<h3>Add a New Business Review</h3>
+<%= form_with model: @business do |form| %>
+
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <br>
+  <%= form.label :description %>
+  <%= form.text_field :description %>
+
+  <br>
+  <%= form.label :team %>
+  <%= form.text_field :team %>
+
+  <br>
+  <%= form.label :star_rating %>
+  <%= form.text_field :star_rating %>
+
+  <br>
+  <%= form.submit 'Add Business Review' %>
+<% end %>
