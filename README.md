@@ -81,3 +81,32 @@ Rails App - Only one team member performs these actions.
   c) Views
     - to display all the attributes for each instance
 
+## new and create
+- Allow a user to create data entries 
+  a) Controller
+  b) Routes
+  c) Views
+  - form_with helper method: creates a form that will reference the attributes for each instance in the database
+  ```rb
+  <h3>Add a New Business Review</h3>
+  <%= form_with model: @business do |form| %>
+
+    <%= form.label :name %>
+    <%= form.text_field :name %>
+
+    <br>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+
+    <br>
+    <%= form.label :team %>
+    <%= form.text_field :team %>
+
+    <br>
+    <%= form.label :star_rating %>
+    <%= form.text_field :star_rating %>
+
+    <br>
+    <%= form.submit 'Add Business Review' %>
+  <% end %>
+  ```
