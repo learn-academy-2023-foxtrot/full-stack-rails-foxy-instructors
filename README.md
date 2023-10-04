@@ -32,4 +32,10 @@
 ## Full Stack Process
 - add all dependencies
 - create a model
+  - $ rails g model Business name:string description:string team:string star_rating:integer
 - create a controller
+  - $ rails g controller Business
+- create some data entries
+  - $ rails c
+  - > Business.create(name: 'CreamWave', description: 'microwave with ice cream tub', team: 'Shake and Bake', star_rating: 5)
+
