@@ -1,9 +1,19 @@
 ## Full Stack Rails 10/4/23 Foxtrot
 
 ## Setup the empty repo
-- Click the link for project
+***
+Empty Github Repo - Only one team member performs these actions.
+***
+- Click on the project link in the slack channel
+- Create team name and accept the assignment
+- An empty github repo will be available
+***NOTE: Do not clone this repo. This repo is meant to store the separate rails app that you will create.***
 
 ## Initial commit to main
+***
+Rails App - Only one team member performs these actions.
+***
+***NOTE: Ensure you are not inside of a github repo when creating the rails app.***
 - $ rails new full-stack -d postgresql -T
 - $ cd full-stack
 - $ rails db:create
@@ -14,8 +24,6 @@
 - $ git branch -m main
 - $ git push origin main
 - $ rails s
-- $ git pull origin main
-- $ git checkout -b full-stack
 
 ## MVP
 - minimum viable project: what needs to be provided to get a functioning application
@@ -39,3 +47,26 @@
   - $ rails c
   - > Business.create(name: 'CreamWave', description: 'microwave with ice cream tub', team: 'Shake and Bake', star_rating: 5)
 
+## index
+- Allow a user to see all the data in the database
+  a) Controller: app/controllers/business_controller.rb
+    - method name will be the restful route index
+    - stores the active record query on an instance variable that will display all the data entries in the database
+    ```rb
+      def index
+        @businesses = Business.all
+      end
+    ```
+
+  b) Routes: config/routes.rb
+    - define the url with http verb `get` and map to the applicable controller and its method `business#index`
+    ```rb
+      get '/businesses' => 'business#index'
+    ```
+
+  c) Views: app/views
+    - will send back the response that will display all the data entries
+    - Since the active record query returns an array, we will iterate across the values and display each instance as a separate line item.
+    - create the `.html.erb` file which will be named after the method
+    - use erb tags <% %> when you don't want to display the data stored in an instance variable 
+    - use erb tags <%= %> when you don't want to display the data stored in an instance variable 

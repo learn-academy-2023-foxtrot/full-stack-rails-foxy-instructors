@@ -1,0 +1,7 @@
+<h1> Business Reviews From the Fox Crew </h1>
+
+<ul>
+  <% @businesses.each do |business| %>
+    <li> <%= business.name %> by <%= business.team %> </li>
+  <% end %>
+</ul>
