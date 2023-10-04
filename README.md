@@ -70,3 +70,14 @@ Rails App - Only one team member performs these actions.
     - create the `.html.erb` file which will be named after the method
     - use erb tags <% %> when you don't want to display the data stored in an instance variable 
     - use erb tags <%= %> when you don't want to display the data stored in an instance variable 
+
+## show
+- Allow a user to see more information about a single data entry
+  a) Controller
+    - method will be called show
+    - active record query will store one instance based on id param
+  b) Routes
+
+  c) Views
+    - to display all the attributes for each instance
+
