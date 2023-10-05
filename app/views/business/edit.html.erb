@@ -1,0 +1,20 @@
+<h3>Edit the Business Review for <%= @business.name %> </h3>
+<%= form_for @business, url: show_business_path(@business), method: :patch do |form| %>
+  <%= form.label :name %>
+  <%= form.text_field :name %>
+
+  <br>
+  <%= form.label :description %>
+  <%= form.text_field :description %>
+
+  <br>
+  <%= form.label :team %>
+  <%= form.text_field :team %>
+
+  <br>
+  <%= form.label :star_rating %>
+  <%= form.text_field :star_rating %>
+
+  <br>
+  <%= form.submit 'Update Business Review' %>
+  <% end %>

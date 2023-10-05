@@ -188,6 +188,47 @@ Rails App - Only one team member performs these actions.
     - to verify that a new instance was saved to the database, just pass the url for the index restful route
 
 ## Stretch Goals
+
+## update an existing entry
+- to modify an existing instance in the database, we need to provide an html form that shows the current values that can be changed (edit) and then save those changes to the instance (update)
+### edit
+read -> get -> edit
+a) controller: contains the edit method that will specify which instance to display on the html form
+```rb
+  def edit
+    @business = Business.find(params[:id])
+  end
+```
+b) routes: defines the url with `get` and calls the edit method
+```rb
+  get '/businesses/:id/edit' => 'business#edit'
+```
+c) views:
+    - to display an empty html form with labels named as key of each value in an instance
+    - create edit.html.erb which will use form_for helper method, which creates a form that will reference the attributes for each instance in the database
+    - form_for helper method with options 
+    - form_for helper method will use builtin methods to state what values to assign to each attribute in the data entry by referencing the instance variable and each attribute(key)
+    - a submit button will also be created from the built-in methods from the helper method
+    
+### update
+update -> patch/put -> update  
+a) controller: contains the update method that will save the changes to the database
+```rb
+  def update
+    @business = Business.find(params[:id])
+    @business.update(business_params)
+  end
+```
+b) routes: defines the url with `patch` and calls the update method
+- also uses strong params, as well as a params id to specify which entry is being updated
+```rb
+  patch '/businesses/:id' => 'business#update'
+```
+- views: no file needed, update RESTful route is saving the modifications
+
+## delete an entry
+
+
 - links to the different pages
-- update an entry
-- delete an entry
+
+<%= form_for @business, url: show_business_path(@business), method: :patch do |form| %
