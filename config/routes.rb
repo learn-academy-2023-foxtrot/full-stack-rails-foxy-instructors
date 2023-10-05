@@ -11,5 +11,10 @@ Rails.application.routes.draw do
   post '/businesses' => 'business#create'
 
   # one instance
-  get '/businesses/:id' => 'business#show'
+  get '/businesses/:id' => 'business#show', as: 'show_business'
+  
+  # update instance
+  get '/businesses/:id/edit' => 'business#edit', as: 'edit_business'
+  patch '/businesses/:id' => 'business#update'
+
 end
