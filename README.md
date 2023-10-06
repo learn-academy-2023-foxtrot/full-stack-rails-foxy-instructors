@@ -1,7 +1,8 @@
 ## Full Stack Rails 10/4/23 Foxtrot
 
 ## helpful terminal commands
-- To see a list of available routes: $ `rails routes -E`
+- To see a list of available routes in the terminal: $ `rails routes -E`
+- To see a list of available routes and their aliases in the browser: http://localhost:3000/rails/info/routes
 - To stop server: `control + c`
 
 ## Setup the empty repo
@@ -380,3 +381,4 @@ Right now if an entry is created, updated, or deleted, it stays on the current p
     <% end %>
   <% end %>
 ```
+- will require validations
