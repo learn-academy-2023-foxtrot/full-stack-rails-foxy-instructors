@@ -277,13 +277,25 @@ c) views
 
 d) button
   - need a button to trigger the method
-  - using method button_to which takes in three arguments: text to be on button, destroy path that takes in the variable, method option that maps to the delete http verb
+  - create alias for destroy RESTful route
+  - using helper method button_to which takes in three arguments: text to be on button, destroy path that takes in the variable, method option that maps to the delete http verb
   - place button on show.html.erb
-  - create alias for 
 ```rb
   <p>
     <%= button_to 'Delete business', destroy_business_path(@business), method: :delete %>
   </p>
 ```
 
-- links to the different pages
+### links to the different pages
+All functionality is working. However we have to type the URL in the browser. Therefore, we will create links that will navigate to the appropriate page
+#### home page
+  - using root on the routes will allow the home page to be reference by `/`
+```rb
+  root 'business#index'
+```
+  - remove `get '/businesses' => 'business#index'` because it is redundant code to respond with the index.html.erb
+  - link will be placed on show, new, edit
+```rb
+  <%= link_to 'Back to Business Reviews', '/' %>
+```
+- create

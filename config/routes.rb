@@ -6,8 +6,7 @@ Rails.application.routes.draw do
 
   # index, new, create, show, edit, update, destroy
   # all the instances
-  get '/businesses' => 'business#index'
-
+  root 'business#index'
   # new instance
   get '/businesses/new' => 'business#new'
   post '/businesses' => 'business#create'
