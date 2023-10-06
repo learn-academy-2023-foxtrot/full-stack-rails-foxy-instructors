@@ -82,6 +82,7 @@ Rails App - Only one team member performs these actions.
       end
 ```  
   b) Routes: config/routes.rb  
+  ***NOTE: The order that restful routes need to be place on the routes.rb is INCSEUD (ink-say-ud): index, new, create, show, edit, update, destroy.***
     - define the url with http verb `get` and map to the applicable controller and its method `business#index`
 ```rb
       get '/businesses' => 'business#index'
@@ -204,12 +205,30 @@ b) routes: defines the url with `get` and calls the edit method
   get '/businesses/:id/edit' => 'business#edit'
 ```
 c) views:
-    - to display an empty html form with labels named as key of each value in an instance
-    - create edit.html.erb which will use form_for helper method, which creates a form that will reference the attributes for each instance in the database
-    - form_for helper method with options 
-    - form_for helper method will use builtin methods to state what values to assign to each attribute in the data entry by referencing the instance variable and each attribute(key)
-    - a submit button will also be created from the built-in methods from the helper method
-    
+  - to display an empty html form with labels named as key of each value in an instance
+***
+  Older, softly deprecated method form_for
+  `<%= form_for @business, url: show_business_path(@business), method: :patch do |form| %>`
+  - create edit.html.erb which will use form_for helper method, which creates a form that will reference the attributes for each instance in the database
+  - form_for helper method with options 
+  - form_for helper method will use builtin methods to state what values to assign to each attribute in the data entry by referencing the instance variable and each attribute(key)
+  - a submit button will also be created from the built-in methods from the helper method  
+***
+  Newer method form_with
+  - aliases will be created for routes to show and edit, show will be assigned the alias `business` because the form_with will be searching for a business_path
+```rb
+  get '/businesses/:id' => 'business#show', as: 'business'
+  get '/businesses/:id/edit' => 'business#edit', as: 'edit_business'
+```
+  - link will be created on the show.html.erb to route to the edit form
+```rb
+  <%= link_to 'Edit this Review', edit_business_path(@business) %>
+```
+  - form_with will have similar use as on the new.html.erb, we just have to add the options for the method to perform the patch http verb
+```
+  <%= form_with model: @business, method: :patch do |form| %>
+```
+
 ### update
 update -> patch/put -> update  
 a) controller: contains the update method that will save the changes to the database
