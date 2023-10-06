@@ -213,18 +213,23 @@ c) views:
   - form_for helper method with options 
   - form_for helper method will use builtin methods to state what values to assign to each attribute in the data entry by referencing the instance variable and each attribute(key)
   - a submit button will also be created from the built-in methods from the helper method  
+*** 
+***Error explanation***
+![Error Message](./app/assets/images/business-path-error.png)
+**Error:** When using the form_with during lecture, we received a `no method error in business#edit` due to an undefined method `business_path' on app/views/business/edit.html.erb. 
+**Reason:**   
+The helper method was looking for the entry that would be displayed on the show.html.eb. However, it searches for the file path that is designated by an alias: `business_path`  
+**Solution:**  
+![Successful Response](./app/assets/images/edit-view.png)
+
+Assign alias called `business` to the show RESTful route. 
 ***
-  Newer method form_with
-  - aliases will be created for routes to show and edit, show will be assigned the alias `business` because the form_with will be searching for a business_path
+Newer method form_with
+  - RESTful route show will be assigned the alias `business` because the form_with will be searching for a business_path
 ```rb
   get '/businesses/:id' => 'business#show', as: 'business'
-  get '/businesses/:id/edit' => 'business#edit', as: 'edit_business'
 ```
-  - link will be created on the show.html.erb to route to the edit form
-```rb
-  <%= link_to 'Edit this Review', edit_business_path(@business) %>
-```
-  - form_with will have similar use as on the new.html.erb, we just have to add the options for the method to perform the patch http verb
+  - form_with will have similar format as on the new.html.erb, we just have to add the options for the method to perform the patch http verb
 ```
   <%= form_with model: @business, method: :patch do |form| %>
 ```
@@ -243,11 +248,9 @@ b) routes: defines the url with `patch` and calls the update method
 ```rb
   patch '/businesses/:id' => 'business#update'
 ```
-- views: no file needed, update RESTful route is saving the modifications
+- views: no file needed, update RESTful route is saving the modifications to the database
 
-## delete an entry
+## delete an entry (delete -> delete -> destroy)
 
 
 - links to the different pages
-
-<%= form_for @business, url: show_business_path(@business), method: :patch do |form| %

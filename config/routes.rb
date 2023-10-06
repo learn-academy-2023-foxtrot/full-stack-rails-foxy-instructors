@@ -3,8 +3,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  # all the instances
 
+  # index, new, create, show, edit, update, destroy
+  # all the instances
   get '/businesses' => 'business#index'
 
   # new instance
@@ -15,7 +16,7 @@ Rails.application.routes.draw do
   get '/businesses/:id' => 'business#show', as: 'business'
   
   # update instance
-  get '/businesses/:id/edit' => 'business#edit', as: 'edit_business'
+  get '/businesses/:id/edit' => 'business#edit'
   patch '/businesses/:id' => 'business#update'
 
 end
