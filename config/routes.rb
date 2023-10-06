@@ -8,7 +8,7 @@ Rails.application.routes.draw do
   # all the instances
   root 'business#index'
   # new instance
-  get '/businesses/new' => 'business#new'
+  get '/businesses/new' => 'business#new', as: 'new_business'
   post '/businesses' => 'business#create'
 
   # one instance

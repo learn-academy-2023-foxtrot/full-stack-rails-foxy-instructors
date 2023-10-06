@@ -313,5 +313,10 @@ All functionality is working. However we have to type the URL in the browser. Th
 ```
 #### new link
   - create alias for new RESTful route
+```rb
+  get '/businesses/new' => 'business#new', as: 'new_business'
+```
   - link will be placed on index
 ```rb
+  <%= link_to 'Create a New Business Review', new_business_path %>
+```
