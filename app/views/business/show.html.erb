@@ -2,4 +2,8 @@
 <h2> Description of services: <%= @business.description%> </h2>
 <h2> Team Name: <%= @business.team%> </h2>
 <h2> Rating: <%= @business.star_rating%> </h2>
+<br>
+<p>
+<%= button_to 'Delete business', destroy_business_path(@business), method: :delete %>
+</p>
 

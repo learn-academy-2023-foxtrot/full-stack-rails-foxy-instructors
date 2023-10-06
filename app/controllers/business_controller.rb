@@ -24,6 +24,11 @@ class BusinessController < ApplicationController
     @business.update(business_params)
   end
 
+  def destroy
+    @business = Business.find(params[:id])
+    @business.destroy
+  end
+  
   private
   def business_params
     params.require(:business).permit(:name, :description, :team, :star_rating)

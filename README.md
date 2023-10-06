@@ -22,7 +22,7 @@ Rails App - Only one team member performs these actions.
 - $ `cd full-stack`
 - $ `rails db:create`  
 ***NOTE: You will copy and paste the `git remote add origin` command from your empty github repo.***  
-- Connect empty github repo with the local repo: $ git remote add origin https://github.com/learn-academy-2023-foxtrot/full-stack-rails-foxy-instructors.git
+- Connect empty github repo with the local repo: $ `git remote add origin https://github.com/learn-academy-2023-foxtrot/full-stack-rails-foxy-instructors.git`
 - $ `git status`
 - Ensure that you want to add all the files and folders: $ `git add .`
 - $ `git commit -m "initial commit"`
@@ -38,7 +38,7 @@ Rails App - Only one team member performs these actions.
 - Add all dependencies: $ `bundle`
 - Either create a new branch or fetch an existing branch
 - Code!
-***NOTE: You will have to stub more data entries in the rails console because the database is on saved locally .***  
+***NOTE: You will have to stub more data entries in the rails console because the database is saved locally.***  
 
 ## MVP
 - minimum viable project: what needs to be provided to get a basic functioning application
@@ -73,157 +73,160 @@ Rails App - Only one team member performs these actions.
 
 ## index (read -> get -> index)
 - Allow a user to see all the data in the database    
-  a) Controller: app/controllers/business_controller.rb  
-    - method name will be the restful route index
-    - stores the active record query on an instance variable that will display all the data entries in the database
+a) Controller: app/controllers/business_controller.rb  
+  - method name will be the restful route index
+  - stores the active record query on an instance variable that will display all the data entries in the database
 ```rb
-      def index
-        @businesses = Business.all
-      end
+  def index
+    @businesses = Business.all
+  end
 ```  
-  b) Routes: config/routes.rb  
-  ***NOTE: The order that restful routes need to be place on the routes.rb is INCSEUD (ink-say-ud): index, new, create, show, edit, update, destroy.***
-    - define the url with http verb `get` and map to the applicable controller and its method `business#index`
+b) Routes: config/routes.rb  
+***NOTE: The order that restful routes need to be place on the routes.rb is INCSEUD (ink-say-ud): index, new, create, show, edit, update, destroy.***  
+  - define the url with http verb `get` and map to the applicable controller and its method `business#index`
 ```rb
-      get '/businesses' => 'business#index'
+  get '/businesses' => 'business#index'
 ```  
-  c) Views: app/views  
-    - will send back the response that will display all the data entries
-    - Since the active record query returns an array, we will iterate across the values and display each instance as a separate line item.
-    - create the `.html.erb` file which will be named after the method
-    - use erb tags <% %> when you don't want to display the data stored in an instance variable 
-    - use erb tags <%= %> when you don't want to display the data stored in an instance variable 
+c) Views: app/views  
+  - will send back the response that will display all the data entries
+  - Since the active record query returns an array, we will iterate across the values and display each instance as a separate line item.
+  - create the `.html.erb` file which will be named after the method
+  - use erb tags <% %> when you don't want to display the data stored in an instance variable 
+  - use erb tags <%= %> when you don't want to display the data stored in an instance variable 
 
 ## show (read -> get -> show)
 - Allow a user to see more information about a single data entry  
-  a) Controller  
-    - method will be called show
-    - active record query will store one instance based on id param
+a) Controller  
+  - method will be called show
+  - active record query will store one instance based on id param
 ```rb
-    def show
-      @business = Business.find(params[:id])
-    end
+  def show
+    @business = Business.find(params[:id])
+  end
 ```  
-  b) Routes  
-    - define the url with http verb `get` and map to the applicable controller and its method `business#show`
+b) Routes  
+  - define the url with http verb `get` and map to the applicable controller and its method `business#show`
 ```rb
-      get '/businesses' => 'business#show'
+  get '/businesses' => 'business#show'
 ```  
-  c) Views  
-    - to display all the attributes for one instance
-    - create show.html.erb which will display all the values for each attribute(key)
+c) Views  
+  - to display all the attributes for one instance
+  - create show.html.erb which will display all the values for each attribute(key)
 
 ## new and create
 - Allow a user to create data entries (2 steps)
 - to save a new instance to the database, we need to provide an html form to collect the user's input (new) and then save those attributes as a new instance to the database (create)
 
 ### new (read -> get -> new)  
-  a) Controller  
-    - method will be called new
-    - using new built-in method to allow a user to assign values to the different attributes presented on the html form
+a) Controller  
+  - method will be called new
+  - using new built-in method to allow a user to assign values to the different attributes presented on the html form
 ```rb
-      def new
-        @business = Business.new
-      end
+  def new
+    @business = Business.new
+  end
 ```  
-  b) Routes  
-    - define the url with http verb `get` and map to the applicable controller and its method `business#new`
+b) Routes  
+  - define the url with http verb `get` and map to the applicable controller and its method `business#new`
 ```rb
-    get '/businesses/new' => 'business#new'
+  get '/businesses/new' => 'business#new'
 ```  
-  c) Views  
-    - to display an empty html form with labels named as key of each value in an instance
-    - create new.html.erb which will use form_with helper method, which creates a form that will reference the attributes for each instance in the database
-    - form_with helper method with use builtin methods to state what values to assign to each attribute in the data entry by referencing the instance variable and each attribute(key)
-    - a submit button will also be created from the built-in methods from the helper method
+c) Views  
+  - to display an empty html form with labels named as key of each value in an instance
+  - create new.html.erb which will use form_with helper method, which creates a form that will reference the attributes for each instance in the database
+  - form_with helper method with use builtin methods to state what values to assign to each attribute in the data entry by referencing the instance variable and each attribute(key)
+  - a submit button will also be created from the built-in methods from the helper method
 ```rb
-    <h3>Add a New Business Review</h3>
-    <%= form_with model: @business do |form| %>
+  <h3>Add a New Business Review</h3>
+  <%= form_with model: @business do |form| %>
 
-      <%= form.label :name %>
-      <%= form.text_field :name %>
+    <%= form.label :name %>
+    <%= form.text_field :name %>
 
-      <br>
-      <%= form.label :description %>
-      <%= form.text_field :description %>
+    <br>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
 
-      <br>
-      <%= form.label :team %>
-      <%= form.text_field :team %>
+    <br>
+    <%= form.label :team %>
+    <%= form.text_field :team %>
 
-      <br>
-      <%= form.label :star_rating %>
-      <%= form.text_field :star_rating %>
+    <br>
+    <%= form.label :star_rating %>
+    <%= form.text_field :star_rating %>
 
-      <br>
-      <%= form.submit 'Add Business Review' %>
-    <% end %>
+    <br>
+    <%= form.submit 'Add Business Review' %>
+  <% end %>
 ```
 
 ### create (create -> post -> create)
-  a) Controller  
-    - method will be called create
-    - using create built-in method to save a new instance to the database based on the values given to the html form
-    - create restful route will be use strong params to control how to user interacts with the database using the following:
+a) Controller  
+  - method will be called create  
+  - using create built-in method to save a new instance to the database based on the values given to the html form  
+  - create restful route will be use strong params to control how to user interacts with the database using the following:  
       - private: prevents access to certain data/methods across the application
-      - strong params: method listed as private to control what attributes can be created by the user
-      - params.require: establishes which model will have the requirements
-      - .permit(): establishes which attribute the user can provide
+    - strong params: method listed as private to control what attributes can be created by the user
+    - params.require: establishes which model will have the requirements
+    - .permit(): establishes which attribute the user can provide
 ```rb
-    def create
-      @business = Business.create(business_params)
-    end
+  def create
+    @business = Business.create(business_params)
+  end
 
-    private
-    def business_params
-      params.require(:business).permit(:name, :description, :team, :star_rating)
-    end
+  private
+  def business_params
+    params.require(:business).permit(:name, :description, :team, :star_rating)
+  end
 ```  
-  b) Routes  
-    - define the url with http verb `post` and map to the applicable controller and its method `business#create`
+b) Routes  
+  - define the url with http verb `post` and map to the applicable controller and its method `business#create`
 ```rb
-    post '/businesses' => 'business#create'
+  post '/businesses' => 'business#create'
 ```  
-  c) Views  
-    - no file needed because create restful route will be saving new instance to the database
-    - to verify that a new instance was saved to the database, just pass the url for the index restful route
+c) Views  
+  - no file needed because create restful route will be saving new instance to the database
+  - to verify that a new instance was saved to the database, just pass the url for the index restful route
 
 ## Stretch Goals
 
-## update an existing entry
+### update an existing entry
 - to modify an existing instance in the database, we need to provide an html form that shows the current values that can be changed (edit) and then save those changes to the instance (update)
-### edit
-read -> get -> edit
-a) controller: contains the edit method that will specify which instance to display on the html form
+### edit (read -> get -> edit)
+a) controller
+  - contains the edit method that will specify which instance to display on the html form
 ```rb
   def edit
     @business = Business.find(params[:id])
   end
 ```
-b) routes: defines the url with `get` and calls the edit method
+b) routes
+  - defines the url with `get` and calls the edit method
 ```rb
   get '/businesses/:id/edit' => 'business#edit'
 ```
-c) views:
+c) views
   - to display an empty html form with labels named as key of each value in an instance
 ***
-  Older, softly deprecated method form_for
-  `<%= form_for @business, url: show_business_path(@business), method: :patch do |form| %>`
+  Older, softly deprecated method form_for  
+  ```
+    <%= form_for @business, url: show_business_path(@business), method: :patch do |form| %>
+  ```
   - create edit.html.erb which will use form_for helper method, which creates a form that will reference the attributes for each instance in the database
   - form_for helper method with options 
   - form_for helper method will use builtin methods to state what values to assign to each attribute in the data entry by referencing the instance variable and each attribute(key)
   - a submit button will also be created from the built-in methods from the helper method  
 *** 
-***Error explanation***
-![Error Message](./app/assets/images/business-path-error.png)
-**Error:** When using the form_with during lecture, we received a `no method error in business#edit` due to an undefined method `business_path' on app/views/business/edit.html.erb. 
-**Reason:**   
-The helper method was looking for the entry that would be displayed on the show.html.eb. However, it searches for the file path that is designated by an alias: `business_path`  
-**Solution:**  
-![Successful Response](./app/assets/images/edit-view.png)
+***Error explanation***  
+![Error Message](./app/assets/images/business-path-error.png)  
+**Error:** When using the form_with during lecture, we received a `no method error in business#edit` due to an undefined method `business_path' on app/views/business/edit.html.erb.   
+**Reason:**     
+The helper method was looking for the entry that would be displayed on the show.html.eb. However, it searches for the file path that is designated by an alias: `business_path`.    
+**Solution:**    
+![Successful Response](./app/assets/images/edit-view.png)  
 
-Assign alias called `business` to the show RESTful route. 
-***
+Assign alias called `business` to the show RESTful route.   
+***  
 Newer method form_with
   - RESTful route show will be assigned the alias `business` because the form_with will be searching for a business_path
 ```rb
@@ -236,21 +239,51 @@ Newer method form_with
 
 ### update
 update -> patch/put -> update  
-a) controller: contains the update method that will save the changes to the database
+a) controller
+  - contains the update method that will save the changes to the database
+  - uses a params id to specify which entry is being updated
 ```rb
   def update
     @business = Business.find(params[:id])
     @business.update(business_params)
   end
 ```
-b) routes: defines the url with `patch` and calls the update method
-- also uses strong params, as well as a params id to specify which entry is being updated
+b) routes 
+  - defines the url with `patch` and calls the update method
+  - also uses strong params, as well as a params id to specify which entry is being updated
 ```rb
   patch '/businesses/:id' => 'business#update'
 ```
-- views: no file needed, update RESTful route is saving the modifications to the database
+c) views
+  - no file needed, update RESTful route is saving the modifications to the database
 
-## delete an entry (delete -> delete -> destroy)
+### delete an entry (delete -> delete -> destroy)
+a) controller
+- contains the destroy method that will remove an instance from the database
+```rb
+  # removes an instance
+  def destroy
+    @business = Business.find(params[:id])
+    @business.destroy
+  end
+```
+b) routes: 
+  - defines the url with `delete` and calls the destroy method
+```rb
+  delete '/businesses/:id' => 'business#destroy'
+```
+c) views
+  - no file needed
 
+d) button
+  - need a button to trigger the method
+  - using method button_to which takes in three arguments: text to be on button, destroy path that takes in the variable, method option that maps to the delete http verb
+  - place button on show.html.erb
+  - create alias for 
+```rb
+  <p>
+    <%= button_to 'Delete business', destroy_business_path(@business), method: :delete %>
+  </p>
+```
 
 - links to the different pages

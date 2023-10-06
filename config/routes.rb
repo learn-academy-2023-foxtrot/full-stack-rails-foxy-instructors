@@ -19,4 +19,7 @@ Rails.application.routes.draw do
   get '/businesses/:id/edit' => 'business#edit'
   patch '/businesses/:id' => 'business#update'
 
+  # delete instance
+  delete '/businesses/:id' => 'business#destroy', as: 'destroy_business'
+
 end
