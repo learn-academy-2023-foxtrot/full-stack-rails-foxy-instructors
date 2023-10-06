@@ -1,5 +1,6 @@
 <%= link_to 'Back to Business Reviews', '/' %>
 <h3>Add a New Business Review</h3>
+
 <%= form_with model: @business do |form| %>
 
   <%= form.label :name %>
@@ -19,4 +20,5 @@
 
   <br>
   <%= form.submit 'Add Business Review' %>
+  
 <% end %>

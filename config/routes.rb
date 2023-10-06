@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   get '/businesses/:id' => 'business#show', as: 'business'
   
   # update instance
-  get '/businesses/:id/edit' => 'business#edit'
+  get '/businesses/:id/edit' => 'business#edit', as: 'edit_business'
   patch '/businesses/:id' => 'business#update'
 
   # delete instance

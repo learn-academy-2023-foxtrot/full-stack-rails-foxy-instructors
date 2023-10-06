@@ -306,7 +306,7 @@ All functionality is working. However we have to type the URL in the browser. Th
   <li> 
     <%= link_to "#{business.name} by #{business.team}", business_path(business) %> 
   </li>
-  # edit - will wrapped `pre` html tag around links to allow spacing between them 
+  # edit - will wrap `pre` html tag around links to allow spacing between them 
   <pre>
     <%= link_to 'Back to Business Reviews', '/' %>  <%= link_to "Cancel", business_path(@business) %>
   </pre>
@@ -319,4 +319,64 @@ All functionality is working. However we have to type the URL in the browser. Th
   - link will be placed on index
 ```rb
   <%= link_to 'Create a New Business Review', new_business_path %>
+```
+#### edit link
+  - create alias for edit RESTful route
+```rb
+  get '/businesses/:id/edit' => 'business#edit', as: 'edit_business'
+```
+  - link will be placed on show
+  - wrap `pre` html tag around links to allow spacing between them
+```rb
+  <%= link_to 'Update this Business Review', edit_business_path(@business) %>
+```
+
+### redirects for valid and invalid actions
+Right now if an entry is created, updated, or deleted, it stays on the current page. Allow for a better user experience with redirects and error messages. redirect_to helper requires a path. Error logs will be accessed through errors method.
+#### create
+```rb
+  def create
+    @business = Business.create(business_params)
+    if @business.valid?
+      redirect_to '/'
+    else
+      @business.errors
+    end
+  end
+```
+
+#### update
+```rb
+  def update
+    @business = Business.find(params[:id])
+    @business.update(business_params)
+    if @business.valid?
+      redirect_to business_path
+    else
+      @business.errors
+    end
+  end
+```
+
+#### destroy
+```rb
+  def destroy
+    @business = Business.find(params[:id])
+    @business.destroy
+    if @business.valid?
+      redirect_to '/'
+    else
+      @business.errors
+    end
+  end
+```
+
+### Icebox
+- print error message to screen
+```rb
+  <% if @business.errors.any? %>
+    <% @business.errors.full_messages.each do |err|%>
+      <h2> <%= err %> </h2>
+    <% end %>
+  <% end %>
 ```
