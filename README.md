@@ -288,7 +288,7 @@ d) button
 
 ### links to the different pages
 All functionality is working. However we have to type the URL in the browser. Therefore, we will create links that will navigate to the appropriate page
-#### home page
+#### index link
   - using root on the routes will allow the home page to be reference by `/`
 ```rb
   root 'business#index'
@@ -298,4 +298,20 @@ All functionality is working. However we have to type the URL in the browser. Th
 ```rb
   <%= link_to 'Back to Business Reviews', '/' %>
 ```
-- create
+#### show link
+  - alias is already established
+  - link will be placed on index, edit
+```rb
+  # index - will use string interpolation and alias path will take the specified data entry as an argument
+  <li> 
+    <%= link_to "#{business.name} by #{business.team}", business_path(business) %> 
+  </li>
+  # edit - will wrapped `pre` html tag around links to allow spacing between them 
+  <pre>
+    <%= link_to 'Back to Business Reviews', '/' %>  <%= link_to "Cancel", business_path(@business) %>
+  </pre>
+```
+#### new link
+  - create alias for new RESTful route
+  - link will be placed on index
+```rb

@@ -2,6 +2,8 @@
 
 <ul>
   <% @businesses.each do |business| %>
-    <li> <%= business.name %> by <%= business.team %> </li>
+    <li> 
+      <%= link_to "#{business.name} by #{business.team}", business_path(business) %> 
+    </li>
   <% end %>
 </ul>
