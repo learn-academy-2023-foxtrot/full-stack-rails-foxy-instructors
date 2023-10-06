@@ -1,5 +1,8 @@
+<pre>
+  <%= link_to 'Back to Business Reviews', '/' %>  <%= link_to 'Cancel', business_path(@business) %>
+</pre>
 <h3>Edit the Business Review for <%= @business.name %> </h3>
-<%= form_for @business, url: show_business_path(@business), method: :patch do |form| %>
+<%= form_with model: @business, method: :patch do |form| %>
   <%= form.label :name %>
   <%= form.text_field :name %>
 
@@ -17,4 +20,4 @@
 
   <br>
   <%= form.submit 'Update Business Review' %>
-  <% end %>
+<% end %>
